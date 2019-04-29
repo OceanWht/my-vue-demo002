@@ -8,9 +8,12 @@ import seller from '../components/seller/seller'
 Vue.use(Router)
 
 export default new Router({
+  //linkActiveClass:'active',
+  mode:'history',
   routes: [
-    {path:'/goods',name:'goods',component:goods},
-    {path:'/ratings',name:'ratings',component:ratings},
-    {path:'/seller',name:'seller',component:seller}
+    {path:'/',name:'goods',component:goods},
+    {path:'/api/goods',name:'goods',component:goods},
+    {path:'/api/ratings',name:'ratings',component:ratings},
+    {path:'/api/seller',name:'seller',component:seller}
   ]
 })

@@ -11,8 +11,8 @@
         <router-link :to="{name:'ratings'}" tag="a">评论</router-link>
        <!-- <a v-link="{path:'/ratings'}"></a>-->
       </div>
-      <div class="tab-item">
-        <router-link :to="{name:'seller'}" tag="a">商家</router-link>
+      <div class="tab-item" v-on:click="getSeller"> <!--点击事件不能放在router-link里面，要放在div里面。否则失效-->
+        <router-link :to="{name:'seller'}" tag="a" >商家</router-link>
 
         <!--<a v-link="{path:'/seller'}"></a>-->
       </div>
@@ -23,11 +23,40 @@
 </template>
 
 <script>
-  import header from './components/header/header.vue'
+  import headers from './components/header/header.vue'
+
+  const ERR_OK = 0;
 
   export default {
     name: 'App',
-    components: {'v-header': header}               //注册header.vue组件
+    data() {
+      return {
+        baseUrl:"localhost:8080",
+        seller:{
+        }
+      };
+    },
+    //ajax 请求通过第三方插件vue-resource 来实现，在钩子函数例如created里使用  错误的，最新版本在methods里使用
+    /*created() {
+      this.$http.get('/api/seller').then((response) => {
+          response = response.body;
+          console.log("1111",response);
+          if (response.errno === ERR_OK){
+              this.seller = response.data;
+              console.log(this.seller)
+          }
+      });
+    },*/
+    methods: {
+      getSeller:function () {
+        alert("111");
+        this.$http.get('/api/seller').then(response => {
+          response = response.body;
+          console.log("1111",response);
+        });
+      }
+    },
+    components: {'v-header': headers}               //注册header.vue组件
   }
 </script>
 
@@ -41,4 +70,11 @@
     .tab-item
       flex: 1
       text-align center
+      & > a
+        display block      //填充父类div
+        font-size 14px
+        text-decoration none  //去掉下划线
+        color rgb(77,85,93)
+        &.router-link-exact-active
+          color rgb(240,20,20)
 </style>

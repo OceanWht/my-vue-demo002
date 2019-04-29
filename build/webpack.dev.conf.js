@@ -59,7 +59,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           errno: 0,
           data: seller
         })
-      })                               //这里不能用分号;
+      })                             //这里不能用分号;
 
       app.get('/api/goods', function (req, res) {
         res.json({
